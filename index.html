@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>stream schedule</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <style>
+        *, *:before, *:after {
+            box-sizing: border-box;
+        }
+        html, body {
+
+            padding: 0;
+            height: 1080px;
+            width: 1920px;
+            font-family: "Rubik";
+            background: #0f0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body {
+            display: flex;
+            margin: 20px;
+        }
+
+        .art-background {
+            position: absolute;
+            top: -20%;
+            left: 50%;
+            right: 0;
+            bottom: -20%;
+            overflow: hidden;
+            border-top-left-radius: 50%;
+            border-bottom-left-radius: 50%;
+            padding: 10% 0;
+            background: url('./newArtBackground2.png');
+            background-size: cover;
+        }
+
+        .art-background img {
+            height: 101%;
+            width: 101%;
+            /*height: 121%;*/
+            /*width: 121%;*/
+            /*margin-left: -1%;*/
+            object-fit: cover;
+            object-position: 50% 50%;
+            /*object-position: 30% 50%;*/
+            /*margin-left: -90px;*/
+            /*margin-top: -250px;*/
+        }
+
+        .art-tag {
+            background: #C61618;
+            color: #fff;
+            font-size: 32px;
+            padding: 10px 20px;
+            position: absolute;
+            bottom: calc(10% + 50px);
+            left: calc(50% + 100px);
+            transform: translate(-50%, -50%);
+            white-space: nowrap;
+            border-radius: 40px;
+            font-weight: 200;
+        }
+
+
+        .content {
+            background-color: #5E5651;
+            background-image: url(./stripes.png);
+            height: 100%;
+            width: 58%;
+            padding: 10px 30px;
+        }
+
+        .socials {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 42%;
+            height: 40px;
+            background: #C61618;
+            color: #fff;
+            display: flex;
+            padding: 10px 40px 10px 10px;
+            justify-content: space-between;
+            font-weight: bolder;
+        }
+
+        .social {
+            display: flex;
+            height: 100%;
+            justify-content: center;
+        }
+
+        .social img {
+            margin-right: 10px;
+        }
+
+        .social div {
+            font-size: 30px;
+            margin-right: 10px;
+            line-height: 20px;
+        }
+
+        .schedule-header {
+            display: block;
+            height: 100px;
+            margin-bottom: 50px;
+            filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.5));
+        }
+
+        .schedule {
+            width: 85%;
+            height: calc(100% - 190px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .day {
+            position: relative;
+            background: #fff;
+            width: 100%;
+            height: 120px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            display: flex;
+            box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+            align-items: center;
+        }
+
+        .day.off {
+            background: rgba(255, 255, 255, 0.6);
+        }
+
+        .date {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            background: #C61618;
+            color: #fff;
+            transform: rotate(-15deg);
+            font-size: 24px;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 15px;
+            box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .date-text {
+            transform: scale(1.5, 1);
+        }
+
+        .day-name {
+            width: 150px;
+            text-align: center;
+            font-size: 64px;
+            font-family: "Times New Roman";
+        }
+
+        .game {
+            width: calc(100% - 220px);
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .game-art {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 0;
+        }
+
+        .game-art img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            opacity: 0.75;
+        }
+
+        .console {
+            position: absolute;
+            top: -30px;
+            left: 120px;
+            transform: rotate(-15deg);
+            height: 60px;
+            width: 60px;
+            z-index: 2;
+            filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.5));
+        }
+
+        .console img {
+            height: 100%;
+            width: 100%;
+        }
+
+        .time {
+            width: 70px;
+            padding: 10px;
+            font-size: 24px;
+            font-weight: bolder;
+            transform: scale(1, 1.5);
+        }
+
+        .game-info {
+            position: relative;
+            z-index: 2;
+            padding: 0 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .game-title {
+            paint-order: stroke fill;
+            font-size: 48px;
+            color: #000;
+            -webkit-text-stroke: 3px #fff;
+            font-weight: 900;
+        }
+
+        .game-note {
+            margin-top: -10px;
+            paint-order: stroke fill;
+            font-size: 30px;
+            color: #000;
+            -webkit-text-stroke: 0.5px #fff;
+            font-weight: bolder;
+        }
+
+        .off-day-message {
+            padding: 0 40px;
+            paint-order: stroke fill;
+            font-size: 48px;
+            color: #000;
+            -webkit-text-stroke: 3px #fff;
+            font-weight: 900;
+        }
+
+        .sun-art img {
+            object-position: 50% 50%;
+        }
+
+        .mon-art img {
+            object-position: 50% 50%;
+        }
+
+        .tue-art img {
+            object-position: 50% 50%;
+        }
+
+        .wed-art img {
+            object-position: 50% 50%;
+        }
+
+        .thu-art img {
+
+        }
+
+        .fri-art img {
+            object-position: 50% 50%;
+        }
+
+        .sat-art img {
+            object-position: 50% 50%;
+        }
+    </style>
+</head>
+<body>
+<div class="content">
+    <img class="schedule-header" src="http://placekitten.com/1798/184" alt="title image" />
+    <div class="schedule">
+        <div class="day">
+            <div class="date">
+                <div class="date-text">
+                    10/29
+                </div>
+            </div>
+            <div class="day-name">
+                SUN
+            </div>
+            <div class="console">
+                <img src="consoles/ps4.png" />
+            </div>
+            <div class="game">
+                <div class="game-art sun-art">
+                    <img src="http://placekitten.com/1920/1081" />
+                </div>
+                <div class="game-info">
+                    <div class="game-title">
+                        Cool Game
+                    </div>
+                    <div class="game-note">
+                        subtitle here
+                    </div>
+                </div>
+            </div>
+            <div class="time">
+                6PM CST
+            </div>
+        </div>
+        <div class="day">
+            <div class="date">
+                <div class="date-text">
+                    10/30
+                </div>
+            </div>
+            <div class="day-name">
+                MON
+            </div>
+            <div class="console">
+                <img src="consoles/ps2.png" />
+            </div>
+            <div class="game">
+                <div class="game-art mon-art">
+                    <img src="http://placekitten.com/1920/1082" />
+                </div>
+                <div class="game-info">
+                    <div class="game-title">
+                        Great game!
+                    </div>
+                    <div class="game-note">
+                        subtitle here
+                    </div>
+                </div>
+            </div>
+            <div class="time">
+                6PM CST
+            </div>
+        </div>
+        <div class="day">
+            <div class="date">
+                <div class="date-text">
+                    10/31
+                </div>
+            </div>
+            <div class="day-name">
+                TUE
+            </div>
+            <div class="console">
+                <img src="consoles/pc.png" />
+            </div>
+            <div class="game">
+                <div class="game-art tue-art">
+                    <img src="http://placekitten.com/1920/1083" />
+                </div>
+                <div class="game-info">
+                    <div class="game-title" style="font-size:42px;">
+                        Funni Game
+                    </div>
+                    <div class="game-note">
+                        subtitle here
+                    </div>
+                </div>
+            </div>
+            <div class="time">
+                6PM CST
+            </div>
+        </div>
+        <div class="day">
+            <div class="date">
+                <div class="date-text">
+                    11/1
+                </div>
+            </div>
+            <div class="day-name">
+                WED
+            </div>
+            <div class="console">
+                <img src="consoles/snes.png" />
+            </div>
+            <div class="game">
+                <div class="game-art wed-art">
+                    <img src="http://placekitten.com/1920/1084" />
+                </div>
+                <div class="game-info">
+                    <div class="game-title">
+                        Scary Game
+                    </div>
+                    <div class="game-note">
+                        subtitle here
+                    </div>
+                </div>
+            </div>
+            <div class="time">
+                6PM CST
+            </div>
+        </div>
+        <div class="day off">
+            <div class="date">
+                <div class="date-text">
+                    11/2
+                </div>
+            </div>
+            <div class="day-name">
+                THU
+            </div>
+            <div class="off-day-message">
+                Day Off UwU
+            </div>
+        </div>
+        <div class="day">
+            <div class="date">
+                <div class="date-text">
+                    11/3
+                </div>
+            </div>
+            <div class="day-name">
+                FRI
+            </div>
+            <div class="console">
+                <img src="consoles/nes.png" />
+            </div>
+            <div class="game">
+                <div class="game-art fri-art">
+                    <img src="http://placekitten.com/1920/1085" />
+                </div>
+                <div class="game-info">
+                    <div class="game-title">
+                        Run Game
+                    </div>
+                    <div class="game-note">
+                        subtitle here
+                    </div>
+                </div>
+            </div>
+            <div class="time">
+                6PM CST
+            </div>
+        </div>
+        <div class="day">
+            <div class="date">
+                <div class="date-text">
+                    11/4
+                </div>
+            </div>
+            <div class="day-name">
+                SAT
+            </div>
+            <div class="console">
+                <img src="consoles/switch.png" />
+            </div>
+            <div class="game">
+                <div class="game-art sat-art">
+                    <img src="http://placekitten.com/1920/1086" />
+                </div>
+                <div class="game-info">
+                    <div class="game-title">
+                        Train Game
+                    </div>
+                    <div class="game-note">
+                        subtitle here
+                    </div>
+                </div>
+            </div>
+            <div class="time">
+                6PM CST
+            </div>
+        </div>
+    </div>
+</div>
+<div class="socials">
+    <div class="social">
+        <img src="socials/twitch.png">
+        <div>
+            twitch
+        </div>
+    </div>
+    <div class="social">
+        <img src="socials/youtube.png">
+        <div>
+            youtube
+        </div>
+    </div>
+    <div class="social">
+        <img src="socials/twitter.png">
+        <div>
+            @twitter
+        </div>
+    </div>
+    <div class="social">
+        <img src="socials/instagram.png">
+        <div>
+            instagram
+        </div>
+    </div>
+</div>
+<div class="art-background">
+    <img src="http://placekitten.com/1920/1080" />
+    <div class="art-tag">
+        ART BY artist-chan
+    </div>
+</div>
+</body>
+</html>
