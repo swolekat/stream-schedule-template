@@ -21,3 +21,4 @@ Couple of notes
 * You can use comments (`<!-- this is a comment -->`) to hide things. Just remove the comment when you want stuff back.
 * You can also hide images by removing the src.
 * If you want to remove socials, just delete the ones you don't need/use.
+* Automatic dating: Now you just have to update the date for sunday. The rest will automatically be filled out.
