@@ -279,8 +279,8 @@
     <div class="schedule">
         <div class="day">
             <div class="date">
-                <div class="date-text">
-                    10/29
+                <div class="date-text" id="sun-date">
+                    11/12
                 </div>
             </div>
             <div class="day-name">
@@ -308,7 +308,7 @@
         </div>
         <div class="day">
             <div class="date">
-                <div class="date-text">
+                <div class="date-text" id="mon-date">
                     10/30
                 </div>
             </div>
@@ -337,7 +337,7 @@
         </div>
         <div class="day">
             <div class="date">
-                <div class="date-text">
+                <div class="date-text" id="tue-date">
                     10/31
                 </div>
             </div>
@@ -366,7 +366,7 @@
         </div>
         <div class="day">
             <div class="date">
-                <div class="date-text">
+                <div class="date-text" id="wed-date">
                     11/1
                 </div>
             </div>
@@ -395,7 +395,7 @@
         </div>
         <div class="day off">
             <div class="date">
-                <div class="date-text">
+                <div class="date-text" id="thu-date">
                     11/2
                 </div>
             </div>
@@ -424,7 +424,7 @@
         </div>
         <div class="day">
             <div class="date">
-                <div class="date-text">
+                <div class="date-text" id="fri-date">
                     11/3
                 </div>
             </div>
@@ -453,7 +453,7 @@
         </div>
         <div class="day">
             <div class="date">
-                <div class="date-text">
+                <div class="date-text" id="sat-date">
                     11/4
                 </div>
             </div>
@@ -514,5 +514,46 @@
         ART BY artist-chan
     </div>
 </div>
+<script>
+    const sundayDateElement = document.getElementById('sun-date');
+    const mondayDateElement = document.getElementById('mon-date');
+    const tuesdayDateElement = document.getElementById('tue-date');
+    const wednesdayDateElement = document.getElementById('wed-date');
+    const thursdayDateElement = document.getElementById('thu-date');
+    const fridayDateElement = document.getElementById('fri-date');
+    const saturdayDateElement = document.getElementById('sat-date');
+
+    const addDay = (date) => {
+        const newDate = new Date(date.valueOf());
+        newDate.setDate(date.getDate() + 1);
+        return newDate;
+    };
+
+    const updateDates = () => {
+        const sundayDate = sundayDateElement.innerHTML;
+        const currentYear = new Date().getFullYear();
+        const currentSundayDate = new Date(`${sundayDate}/${currentYear}`);
+
+        const mondayDate = addDay(currentSundayDate);
+        mondayDateElement.innerHTML = `${mondayDate.getMonth() + 1}/${mondayDate.getDate()}`;
+
+        const tuesdayDate = addDay(mondayDate);
+        tuesdayDateElement.innerHTML = `${tuesdayDate.getMonth() + 1}/${tuesdayDate.getDate()}`;
+
+        const wednesdayDate = addDay(tuesdayDate);
+        wednesdayDateElement.innerHTML = `${wednesdayDate.getMonth() + 1}/${wednesdayDate.getDate()}`;
+
+        const thursdayDate = addDay(wednesdayDate);
+        thursdayDateElement.innerHTML = `${thursdayDate.getMonth() + 1}/${thursdayDate.getDate()}`;
+
+        const fridayDate = addDay(thursdayDate);
+        fridayDateElement.innerHTML = `${fridayDate.getMonth() + 1}/${fridayDate.getDate()}`;
+
+        const saturdayDate = addDay(fridayDate);
+        saturdayDateElement.innerHTML = `${saturdayDate.getMonth() + 1}/${saturdayDate.getDate()}`;
+    };
+
+    updateDates();
+</script>
 </body>
 </html>
